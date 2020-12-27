@@ -1,12 +1,10 @@
 <template>
 	<div class="main">
     <v-app-bar dark color="primary">
-      <v-app-bar-nav-icon></v-app-bar-nav-icon>
-      <v-toolbar-title>{{ this.$route.name }}</v-toolbar-title>
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-toolbar-title>두두 베타</v-toolbar-title>
       <v-spacer/>
       <v-menu
-        left
-        bottom
       >
         <template v-slot:activator="{ on, attrs }">
           <v-btn
@@ -22,16 +20,75 @@
           <v-list-item
             @click="signout()"
           >
-            <v-list-item-title>Sign out</v-list-item-title>
+            <v-list-item-icon>
+              <v-icon>mdi-power-plug-off</v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              Sign out
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item
+            @click="refresh()"
+          >
+            <v-list-item-icon>
+              <v-icon>mdi-refresh</v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              Refresh UserData
+            </v-list-item-content>
           </v-list-item>
         </v-list>
       </v-menu>
     </v-app-bar>
 
-    <router-view/>
+    <v-navigation-drawer
+      v-model="drawer"
+      absolute
+      prominent
+    >
+      <v-list-item>
+        <v-list-item-content>
+          <v-list-item-title class="title">
+            Doudo
+          </v-list-item-title>
+          <v-list-item-subtitle>
+            두두 베타
+          </v-list-item-subtitle>
+        </v-list-item-content>
+      </v-list-item>
+
+      <v-divider></v-divider>
+
+      <v-list
+        dense
+        nav
+      >
+        <v-list-item
+          v-for="item in drawerMenu"
+          :key="item.name"
+          link
+          :to="item.to"
+        >
+          <v-list-item-icon>
+            <v-icon>{{ item.icon }}</v-icon>
+          </v-list-item-icon>
+
+          <v-list-item-content>
+            <v-list-item-title>{{ item.name }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
+
+    <v-main>
+      <transition name="fade" mode="out-in">
+        <router-view/>
+      </transition>
+    </v-main>
 
 		<v-bottom-navigation
     color="primary"
+    absolute
     grow
     app
   >
@@ -60,9 +117,37 @@ export default {
   methods:{
     signout(){
       this.$store.dispatch('signout');
+    },
+    refresh(){
+      this.$store.dispatch('fetchUser');
     }
   },
   data:()=>({
+    drawer:false,
+    drawerMenu:[
+      {icon:'mdi-home',name:'홈',to:'/home'},
+      {icon:'mdi-format-list-bulleted-square',name:'Todo',to:'/todo'},
+      {icon:'mdi-calendar',name:'이벤트',to:'/calendar'},
+    ]
   }),
 }
 </script>
+
+
+<style>
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-enter-active {
+  transition: opacity 0.15s ease;
+}
+
+.fade-leave {}
+
+.fade-leave-active {
+  transition: opacity 0.15s ease;
+  opacity: 0;
+}
+
+</style>
