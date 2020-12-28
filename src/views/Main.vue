@@ -28,13 +28,23 @@
             </v-list-item-content>
           </v-list-item>
           <v-list-item
-            @click="refresh()"
+            @click="refreshUser()"
           >
             <v-list-item-icon>
               <v-icon>mdi-refresh</v-icon>
             </v-list-item-icon>
             <v-list-item-content>
               Refresh UserData
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item
+            @click="refreshTodo()"
+          >
+            <v-list-item-icon>
+              <v-icon>mdi-refresh</v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              Refresh Todo
             </v-list-item-content>
           </v-list-item>
         </v-list>
@@ -88,7 +98,6 @@
 
 		<v-bottom-navigation
     color="primary"
-    absolute
     grow
     app
   >
@@ -118,8 +127,11 @@ export default {
     signout(){
       this.$store.dispatch('signout');
     },
-    refresh(){
+    refreshUser(){
       this.$store.dispatch('fetchUser');
+    },
+    refreshTodo(){
+      this.$store.dispatch('fetchTodo');
     }
   },
   data:()=>({

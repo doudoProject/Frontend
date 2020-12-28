@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import store from '../store';
+import axios from 'axios';
 
 import Main from '../views/Main.vue';
 import Signin from '../views/Signin.vue';
@@ -11,6 +12,13 @@ import Calendar from '../views/Calendar.vue';
 
 const requireAuth = () => (to, from, next) => { 
     if(store.getters.user.accessToken){
+		//check if the page is refreshed
+		if(!axios.defaults.headers.common['Authorization']){
+			//on refreshed
+			store.commit('setAuthorization');
+			store.dispatch('fetchUser')
+			.then(()=>{next();})
+		}
         return next()
     }
     next('signin');

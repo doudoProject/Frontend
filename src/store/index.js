@@ -4,7 +4,10 @@ import axios from 'axios';
 import router from '../router';
 
 const localUserData = JSON.parse(localStorage.getItem('user'));
-const initialUserData = localUserData?  localUserData : {
+const initialUserData = localUserData?  
+localUserData
+:
+{
 	accessToken:null,
 	info:null,
 };
@@ -17,6 +20,7 @@ function ClearUser(){
 }
 
 Vue.use(Vuex);
+
 export const resourceHost = 'https://api.doudo.kr/v1';
 
 const axiosInterceptor = axios.interceptors.response.use(
@@ -64,6 +68,11 @@ export default new Vuex.Store({
 		setTodo(state,payload){
 			if(state.user.info.couple){
 				state.user.info.couple.todo = payload;
+			}
+		},
+		addTodo(state,payload){
+			if(state.user.info.couple){
+				state.user.info.couple.todo.push(payload);
 			}
 		},
 		setUserAccessToken(state, payload) {
@@ -114,6 +123,28 @@ export default new Vuex.Store({
 			})
 			.then(response=>{
 				commit('setTodo',response.data);
+			})
+		},
+		addTodo({commit}, payload) {
+			return axios({
+				method: 'post',
+				url: `${resourceHost}/todo`,
+				data: payload
+			})
+			.then(()=>{
+				commit('addTodo',payload);
+			})
+		},
+		doneTodo({commit}, payload) {
+			return axios({
+				method: 'put',
+				url: `${resourceHost}/todo`,
+				data: {
+					id:payload.id
+				}
+			})
+			.then(()=>{
+				commit('addTodo',payload);
 			})
 		}
 	},

@@ -2,9 +2,9 @@
   <v-app>
     <router-view></router-view>
     <v-snackbar
-      v-model="this.$store.getters.snackbar.show"
+      v-model="$store.getters.snackbar.show"
     >
-      {{ this.$store.getters.snackbar.message }}
+      {{ $store.getters.snackbar.message }}
 
       <template v-slot:action="{ attrs }">
         <v-btn
