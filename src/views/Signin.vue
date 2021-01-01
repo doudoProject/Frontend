@@ -9,10 +9,28 @@
 		<v-container fill-height>
 			<v-img src='@/assets/logo_doudo_rem.png' class=""></v-img>
 			<v-card-text class="px-6 mb-10" align="center">
-				<v-text-field v-model="signInData.userid" dense outlined prepend-inner-icon="mdi-account"/>
-				<v-text-field @keyup.enter="signin()" v-model="signInData.password" type="password" dense outlined prepend-inner-icon="mdi-key" class="mt-0 pt-0"/>
-				<v-btn block color="primary" @click="signin()">
+				<v-text-field
+					v-model="signInData.userid"
+					hide-details
+					dense 
+					outlined 
+					prepend-inner-icon="mdi-account"
+					class="mb-2"
+					/>
+				<v-text-field 
+					@keyup.enter="signin()"
+					v-model="signInData.password"
+					type="password" 
+					hide-details 
+					dense 
+					outlined 
+					prepend-inner-icon="mdi-key"
+					class="mb-2"/>
+				<v-btn block color="primary" @click="signin()" class="mb-2">
 					로그인
+				</v-btn>
+				<v-btn block @click="signin()">
+					회원가입
 				</v-btn>
 			</v-card-text>
 		</v-container>

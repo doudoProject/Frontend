@@ -75,6 +75,18 @@ export default new Vuex.Store({
 				state.user.info.couple.todo.push(payload);
 			}
 		},
+		deleteTodo(state,payload){
+			if(state.user.info.couple){
+				const idx = state.user.info.couple.todo.findIndex(item=>{return item._id === payload.id})
+				if (idx > -1) state.user.info.couple.todo.splice(idx, 1)
+			}
+		},
+		modifyTodo(state,payload){
+			if(state.user.info.couple){
+				const idx = state.user.info.couple.todo.findIndex(item=>{return item._id === payload._id})
+				state.user.info.couple.todo[idx] = payload
+			}
+		},
 		setUserAccessToken(state, payload) {
 			state.user.accessToken = payload;
 			this.commit('setAuthorization');
@@ -131,20 +143,30 @@ export default new Vuex.Store({
 				url: `${resourceHost}/todo`,
 				data: payload
 			})
-			.then(()=>{
-				commit('addTodo',payload);
+			.then(response=>{
+				commit('addTodo',response.data.affected);
 			})
 		},
-		doneTodo({commit}, payload) {
+		deleteTodo({commit}, payload) {
 			return axios({
-				method: 'put',
+				method: 'delete',
 				url: `${resourceHost}/todo`,
 				data: {
 					id:payload.id
 				}
 			})
 			.then(()=>{
-				commit('addTodo',payload);
+				commit('deleteTodo',payload);
+			})
+		},
+		modifyTodo({commit}, payload) {
+			return axios({
+				method: 'put',
+				url: `${resourceHost}/todo`,
+				data: payload
+			})
+			.then(()=>{
+				commit('modifyTodo',payload);
 			})
 		}
 	},

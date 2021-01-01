@@ -1,9 +1,16 @@
 <template>
 	<div class="main">
     <v-app-bar dark color="primary">
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+      <!-- <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon> -->
       <v-toolbar-title>두두 베타</v-toolbar-title>
       <v-spacer/>
+      
+          <v-btn
+            icon
+            @click="refreshTodo()"
+          >
+            <v-icon>mdi-refresh</v-icon>
+          </v-btn>
       <v-menu
       >
         <template v-slot:activator="{ on, attrs }">
@@ -51,7 +58,7 @@
       </v-menu>
     </v-app-bar>
 
-    <v-navigation-drawer
+    <!-- <v-navigation-drawer
       v-model="drawer"
       absolute
       prominent
@@ -88,7 +95,7 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
-    </v-navigation-drawer>
+    </v-navigation-drawer> -->
 
     <v-main>
       <transition name="fade" mode="out-in">

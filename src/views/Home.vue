@@ -13,22 +13,6 @@
         </v-card>
       </v-col>
       <v-col cols="12">
-        <v-card>
-          <v-card-title>
-            <v-icon left color="green">mdi-flash</v-icon>
-            바로가기
-          </v-card-title>
-          <v-card-text>
-            <v-btn block color="primary">
-              할일 추가하기
-            </v-btn>
-            <v-btn block class="mt-1">
-              이벤트 추가하기
-            </v-btn>
-          </v-card-text>
-        </v-card>
-      </v-col>
-      <v-col cols="12">
         <v-card v-if="this.$store.getters.user.info.couple">
           <v-card-title>
             <v-icon left color="red">mdi-heart</v-icon>
@@ -60,6 +44,22 @@
           <v-card-actions right>
             <v-btn text color="primary">생성하기</v-btn>
           </v-card-actions>
+        </v-card>
+      </v-col>
+      <v-col cols="12">
+        <v-card>
+          <v-card-title>
+            <v-icon left color="green">mdi-flash</v-icon>
+            바로가기
+          </v-card-title>
+          <v-card-text>
+            <v-btn block color="primary">
+              할일 추가하기
+            </v-btn>
+            <v-btn block class="mt-1">
+              이벤트 추가하기
+            </v-btn>
+          </v-card-text>
         </v-card>
       </v-col>
     </v-row>
