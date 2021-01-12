@@ -28,6 +28,7 @@ export default {
   data: () => ({
     //
   }),
+  created() { this.$socket.on('chat', (data)=> { console.log( data.message) }) },
 };
 </script>
 

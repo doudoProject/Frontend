@@ -98,6 +98,9 @@ export default new Vuex.Store({
 			ClearUser();
 			state.user.info=null;
 			state.user.accessToken=null;
+		},
+		SOCKET_addTodo(payload){
+			this.commit('addTodo',payload);
 		}
 	},
 	actions: {
@@ -112,7 +115,10 @@ export default new Vuex.Store({
 			})
 			.then(response=>{
 				commit('setUserAccessToken',response.data.accessToken);
-				this.dispatch('fetchUser');
+				this.dispatch('fetchUser')
+				.then(()=>{
+					Vue.prototype.$socket.emit('signin',this.getters.user)
+				})
 			})
 		},
 		signout({ commit }) {
@@ -168,7 +174,7 @@ export default new Vuex.Store({
 			.then(()=>{
 				commit('modifyTodo',payload);
 			})
-		}
+		},
 	},
 	modules: {},
 });

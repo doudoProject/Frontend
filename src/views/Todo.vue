@@ -104,6 +104,7 @@ export default {
       this.isTodoBusy = true;
       this.$store.dispatch('addTodo',{description:this.newTodo.description,duedate:this.newTodo.duedate})
       .then(()=>{
+        this.$socket.emit('addtodo',this.newTodo)
         this.newTodo.description = this.newTodo.duedate = null;
         this.isTodoBusy = false;
       })

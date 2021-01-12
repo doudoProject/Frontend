@@ -101,8 +101,9 @@
       <transition name="fade" mode="out-in">
         <router-view/>
       </transition>
+      
     </v-main>
-
+    <v-btn class="fab-chat" fab fixed right bottom color="primary"><v-icon>mdi-chat</v-icon></v-btn>
 		<v-bottom-navigation
     color="primary"
     grow
@@ -159,14 +160,19 @@ export default {
 }
 
 .fade-enter-active {
-  transition: opacity 0.15s ease;
+  transition: opacity 0.12s ease;
 }
 
 .fade-leave {}
 
 .fade-leave-active {
-  transition: opacity 0.15s ease;
+  transition: opacity 0.12s ease;
   opacity: 0;
+}
+
+.fab-chat{
+  right:12px !important;
+  bottom:68px !important;
 }
 
 </style>
