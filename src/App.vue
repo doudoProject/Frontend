@@ -13,7 +13,7 @@
           v-bind="attrs"
           @click="$store.commit('closeSnackbar')"
         >
-          CLOSE
+          닫기
         </v-btn>
       </template>
     </v-snackbar>
@@ -24,11 +24,14 @@
 
 export default {
   name: 'App',
-
+  sockets:{
+    reconnect(){
+      this.$socket.emit('userconnect',this.$store.getters.user)
+    }
+  },
   data: () => ({
     //
   }),
-  created() { this.$socket.on('chat', (data)=> { console.log( data.message) }) },
 };
 </script>
 

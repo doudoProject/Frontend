@@ -15,13 +15,14 @@ const requireAuth = () => (to, from, next) => {
 		//check if the page is refreshed
 		if(!axios.defaults.headers.common['Authorization']){
 			//on refreshed
-			store.commit('setAuthorization');
+			store.commit('setAuthorization')
 			store.dispatch('fetchUser')
-			.then(()=>{next();})
+			.then(()=>{next()})
 		}
+		Vue.prototype.$socket.emit('userconnect',store.getters.user)
         return next()
     }
-    next('signin');
+    next('signin')
 }
 
 

@@ -128,9 +128,6 @@
 <script>
 export default {
   name: 'Main',
-  components: {
-    
-  },
   methods:{
     signout(){
       this.$store.dispatch('signout');

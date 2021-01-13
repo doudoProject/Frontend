@@ -1,5 +1,5 @@
 <template>
-	<v-container v-if="this.$store.getters.user.info">
+	<v-container>
     <v-row class="mb-1">
       <v-col cols="12">
         <v-card>
@@ -69,9 +69,6 @@
 <script>
 export default {
   name: 'Home',
-  components: {
-    
-  },
 }
 </script>
 

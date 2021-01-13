@@ -99,7 +99,7 @@ export default new Vuex.Store({
 			state.user.info=null;
 			state.user.accessToken=null;
 		},
-		SOCKET_addTodo(payload){
+		SOCKET_todoadded(state,payload){
 			this.commit('addTodo',payload);
 		}
 	},
@@ -115,9 +115,10 @@ export default new Vuex.Store({
 			})
 			.then(response=>{
 				commit('setUserAccessToken',response.data.accessToken);
-				this.dispatch('fetchUser')
+				return this.dispatch('fetchUser')
 				.then(()=>{
-					Vue.prototype.$socket.emit('signin',this.getters.user)
+					
+					// Vue.prototype.$socket.emit('userconnect',this.getters.user)
 				})
 			})
 		},
