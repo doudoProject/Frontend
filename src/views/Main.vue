@@ -101,33 +101,38 @@
       <transition name="fade" mode="out-in">
         <router-view/>
       </transition>
-      
     </v-main>
-    <v-btn class="fab-chat" fab fixed right bottom color="primary"><v-icon>mdi-chat</v-icon></v-btn>
+    <Chat :user="$store.getters.user.info"/>
+    <!-- <v-btn class="fab-chat" fab fixed right bottom color="primary"><v-icon>mdi-chat</v-icon></v-btn> -->
 		<v-bottom-navigation
     color="primary"
     grow
     app
-  >
-    <v-btn to="home">
-      <!-- <span>Home</span> -->
-      <v-icon>mdi-home</v-icon>
-    </v-btn>
-    <v-btn to="todo">
-      <!-- <span>Todo</span> -->
-      <v-icon>mdi-format-list-bulleted-square</v-icon>
-    </v-btn>
-    <v-btn to="calendar">
-      <!-- <span>Calendar</span> -->
-      <v-icon>mdi-calendar</v-icon>
-    </v-btn>
-  </v-bottom-navigation>
+    >
+      <v-btn to="home">
+        <!-- <span>Home</span> -->
+        <v-icon>mdi-home</v-icon>
+      </v-btn>
+      <v-btn to="todo">
+        <!-- <span>Todo</span> -->
+        <v-icon>mdi-format-list-bulleted-square</v-icon>
+      </v-btn>
+      <v-btn to="calendar">
+        <!-- <span>Calendar</span> -->
+        <v-icon>mdi-calendar</v-icon>
+      </v-btn>
+    </v-bottom-navigation>
 	</div>
 </template>
 
 <script>
+import Chat from './Chat';
+
 export default {
   name: 'Main',
+  components:{
+    Chat,
+  },
   methods:{
     signout(){
       this.$store.dispatch('signout');
@@ -137,7 +142,7 @@ export default {
     },
     refreshTodo(){
       this.$store.dispatch('fetchTodo');
-    }
+    },
   },
   data:()=>({
     drawer:false,
