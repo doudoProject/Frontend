@@ -3,7 +3,7 @@
     <v-container class="text-center">
       <v-text-field
         hide-details
-        placeholder="할일을 적어보세요"
+        placeholder="할일을 적어봐요"
         solo
         clearable
         append-outer-icon="mdi-plus-circle"
@@ -104,7 +104,6 @@ export default {
       this.isTodoBusy = true;
       this.$store.dispatch('addTodo',{description:this.newTodo.description,duedate:this.newTodo.duedate})
       .then(()=>{
-        this.$socket.emit('addtodo',this.newTodo)
         this.newTodo.description = this.newTodo.duedate = null;
         this.isTodoBusy = false;
       })

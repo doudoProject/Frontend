@@ -26,7 +26,8 @@ export default {
   name: 'App',
   sockets:{
     reconnect(){
-      this.$socket.emit('userconnect',this.$store.getters.user)
+      if(this.$store.getters.user.accessToken)
+       this.$socket.emit('userconnect',this.$store.getters.user)
     }
   },
   data: () => ({

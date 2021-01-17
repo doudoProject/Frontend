@@ -84,7 +84,10 @@ export default new Vuex.Store({
 		modifyTodo(state,payload){
 			if(state.user.info.couple){
 				const idx = state.user.info.couple.todo.findIndex(item=>{return item._id === payload._id})
-				state.user.info.couple.todo[idx] = payload
+				state.user.info.couple.todo[idx]._id=payload._id;
+				state.user.info.couple.todo[idx].description=payload.description;
+				state.user.info.couple.todo[idx].duedate=payload.duedate;
+
 			}
 		},
 		setUserAccessToken(state, payload) {
@@ -101,6 +104,12 @@ export default new Vuex.Store({
 		},
 		SOCKET_todoadded(state,payload){
 			this.commit('addTodo',payload);
+		},
+		SOCKET_tododeleted(state,payload){
+			this.commit('deleteTodo',payload);
+		},
+		SOCKET_todomodified(state,payload){
+			this.commit('modifyTodo',payload);
 		}
 	},
 	actions: {
@@ -115,11 +124,7 @@ export default new Vuex.Store({
 			})
 			.then(response=>{
 				commit('setUserAccessToken',response.data.accessToken);
-				return this.dispatch('fetchUser')
-				.then(()=>{
-					
-					// Vue.prototype.$socket.emit('userconnect',this.getters.user)
-				})
+				return this.dispatch('fetchUser');
 			})
 		},
 		signout({ commit }) {
@@ -152,6 +157,7 @@ export default new Vuex.Store({
 			})
 			.then(response=>{
 				commit('addTodo',response.data.affected);
+				Vue.prototype.$socket.emit('addtodo',response.data.affected);
 			})
 		},
 		deleteTodo({commit}, payload) {
@@ -164,6 +170,7 @@ export default new Vuex.Store({
 			})
 			.then(()=>{
 				commit('deleteTodo',payload);
+				Vue.prototype.$socket.emit('deletetodo',payload);
 			})
 		},
 		modifyTodo({commit}, payload) {
@@ -174,6 +181,7 @@ export default new Vuex.Store({
 			})
 			.then(()=>{
 				commit('modifyTodo',payload);
+				Vue.prototype.$socket.emit('modifytodo',payload);
 			})
 		},
 	},
