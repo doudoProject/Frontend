@@ -174,7 +174,14 @@ export default {
 
 .fab-chat{
   right:12px !important;
-  bottom:68px !important;
+  bottom: 88px !important;
 }
 
+.v-bottom-navigation{
+  height: 78px !important;
+}
+
+.v-bottom-navigation > .v-btn--contained{
+  height: 58px !important;
+}
 </style>

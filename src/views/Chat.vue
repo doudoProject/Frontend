@@ -24,10 +24,16 @@
 			</v-toolbar>
 			<v-container class="chatHolder">
 				<v-row>
-					<ChatMessage v-for="(item,index) in chats" :key="index" :chat="item" :self="item.user === user.userid"/>
-		<v-footer fixed>
-		<v-text-field label="messages.d.." solo></v-text-field>
-		</v-footer>
+					<ChatMessage v-for="(item,index) in $store.getters.chat" :key="index" :chat="item" :self="item.sender === user.userid"/>
+					<v-footer fixed>
+					<v-text-field label="type message" solo v-model="newChat.message">
+						<template v-slot:append-outer>
+              <div  style="width:auto">
+                <v-btn color="primary" fab small @click="addChat"><v-icon color="white">mdi-send</v-icon></v-btn>
+              </div>
+            </template>
+					</v-text-field>
+					</v-footer>
 				</v-row>
 			</v-container>
 		</v-card>
@@ -44,13 +50,22 @@ export default {
 		},
 		data:()=>({
 			dialog:false,
+			newChat:{message:''},
 			chats:[
-				{message:'채팅 만들고 있어요',user:'user1',read:true},
-				{message:'어떤데요?',user:'user2',read:true},
-				{message:'그럭저럭 이쁜것 같긴 해요',user:'user1',read:true},
-				{message:'그렇군요',user:'user2',read:false},
+				{message:'채팅 만들고 있어요',sender:'user1',read:true},
+				{message:'어떤데요?',sender:'user2',read:true},
+				{message:'그럭저럭 이쁜것 같긴 해요',sender:'user1',read:true},
+				{message:'그렇군요',sender:'user2',read:false},
 			]
-		})
+		}),
+		methods:{
+			addChat(){
+				this.$store.dispatch('addChat',this.newChat)
+				.then(()=>{
+					this.newChat.message='';
+				})
+			}
+		}
 }
 </script>
 

@@ -49,6 +49,12 @@ export default new Vuex.Store({
 		user: (state) => {
 			return state.user;
 		},
+		todo: (state) => {
+			return state.user.info.couple.todo;
+		},
+		chat: (state) => {
+			return state.user.info.couple.chat;
+		},
 		snackbar: (state) =>{
 			return state.snackbar;
 		}
@@ -90,6 +96,16 @@ export default new Vuex.Store({
 
 			}
 		},
+		setChat(state,payload){
+			if(state.user.info.couple){
+				state.user.info.couple.chat = payload;
+			}
+		},
+		addChat(state,payload){
+			if(state.user.info.couple){
+				state.user.info.couple.chat.push(payload);
+			}
+		},
 		setUserAccessToken(state, payload) {
 			state.user.accessToken = payload;
 			this.commit('setAuthorization');
@@ -110,7 +126,10 @@ export default new Vuex.Store({
 		},
 		SOCKET_todomodified(state,payload){
 			this.commit('modifyTodo',payload);
-		}
+		},
+		SOCKET_chatadded(state,payload){
+			this.commit('addChat',payload);
+		},
 	},
 	actions: {
 		signin({ commit }, payload) {
@@ -182,6 +201,26 @@ export default new Vuex.Store({
 			.then(()=>{
 				commit('modifyTodo',payload);
 				Vue.prototype.$socket.emit('modifytodo',payload);
+			})
+		},
+		fetchChat({commit}, payload) {
+			return axios({
+				method: 'get',
+				url: `${resourceHost}/chat/${payload.datetime}`
+			})
+			.then(response=>{
+				commit('setChat',response.data.chats);
+			})
+		},
+		addChat({commit}, payload) {
+			return axios({
+				method: 'post',
+				url: `${resourceHost}/chat`,
+				data: payload
+			})
+			.then(response=>{
+				commit('addChat',response.data.affected);
+				Vue.prototype.$socket.emit('chat',payload);
 			})
 		},
 	},
