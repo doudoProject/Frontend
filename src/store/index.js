@@ -13,10 +13,10 @@ localUserData
 };
 
 function SaveUser(state){
-    localStorage.setItem('user',JSON.stringify(state.user));
+		localStorage.setItem('user',JSON.stringify(state.user));
 }
 function ClearUser(){
-    localStorage.removeItem('user');
+		localStorage.removeItem('user');
 }
 
 Vue.use(Vuex);
@@ -92,8 +92,8 @@ export default new Vuex.Store({
 				const idx = state.user.info.couple.todo.findIndex(item=>{return item._id === payload._id})
 				state.user.info.couple.todo[idx]._id=payload._id;
 				state.user.info.couple.todo[idx].description=payload.description;
+				state.user.info.couple.todo[idx].done=payload.done;
 				state.user.info.couple.todo[idx].duedate=payload.duedate;
-
 			}
 		},
 		setChat(state,payload){
@@ -111,7 +111,7 @@ export default new Vuex.Store({
 			this.commit('setAuthorization');
 		},
 		setAuthorization(state){
-            axios.defaults.headers.common['Authorization'] = `Bearer ${state.user.accessToken}`
+			axios.defaults.headers.common['Authorization'] = `Bearer ${state.user.accessToken}`
 		},
 		unsetUser(state){
 			ClearUser();
@@ -220,7 +220,7 @@ export default new Vuex.Store({
 			})
 			.then(response=>{
 				commit('addChat',response.data.affected);
-				Vue.prototype.$socket.emit('chat',payload);
+				Vue.prototype.$socket.emit('chat',response.data.affected);
 			})
 		},
 	},
