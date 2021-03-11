@@ -65,7 +65,6 @@ export default {
 		fetchChat() {
 			let dayBefore7 = new Date();
 			dayBefore7.setDate(dayBefore7.getDate() - 7);
-			console.log(dayBefore7.toDateString());
 			this.$store.dispatch('fetchChat', {
 				datetime: dayBefore7.getTime()
 			})

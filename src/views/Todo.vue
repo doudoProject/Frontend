@@ -73,7 +73,7 @@
 </template>
 
 <script>
-import { SwipeList  } from 'vue-swipe-actions';
+import { SwipeList } from 'vue-swipe-actions';
 import 'vue-swipe-actions/dist/vue-swipe-actions.css';
 
 export default {

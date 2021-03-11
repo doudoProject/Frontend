@@ -114,6 +114,7 @@ export default new Vuex.Store({
 			axios.defaults.headers.common['Authorization'] = `Bearer ${state.user.accessToken}`
 		},
 		unsetUser(state){
+			Vue.prototype.$socket.emit('userdisconnect');
 			ClearUser();
 			state.user.info=null;
 			state.user.accessToken=null;

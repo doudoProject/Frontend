@@ -5,7 +5,7 @@ module.exports = {
   "devServer": {
     host: "0.0.0.0",
     disableHostCheck: true,
-    port:8081,
+    port:8080,
     https:true,
     https: {
       key: fs.readFileSync('/cert/privkey.pem'),
