@@ -2,7 +2,7 @@
 	<div class="main">
     <v-app-bar dark color="primary">
       <!-- <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon> -->
-      <v-toolbar-title>두두 베타</v-toolbar-title>
+      <v-toolbar-title>두두 데모</v-toolbar-title>
       <v-spacer/>
       
           <v-btn
