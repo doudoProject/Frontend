@@ -4,6 +4,7 @@
 - [Link](https://doudo.stoplight.io/docs/backend/YXBpOjI5NTI2ODg-doudo)
 
 ## Demo
+(Works best in mobile, not optimized for desktop screen size)
 - [Demo Link](https://app.doudo.kr)
 
 |계정|비밀번호|
