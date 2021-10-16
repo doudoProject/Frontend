@@ -1,5 +1,8 @@
 # Doudo
  A todolist app for couple
+## API Document
+- [Link](https://doudo.stoplight.io/docs/backend/YXBpOjI5NTI2ODg-doudo)
+ 
 ## Features
 - Groupped interaction
 - Live todo(adding, modifying, deleting is live)
