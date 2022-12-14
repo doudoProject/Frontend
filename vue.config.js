@@ -1,5 +1,6 @@
 module.exports = {
   "outputDir": "docs",
+  publicPath: "/Frontend"
   "devServer": {
     host: "0.0.0.0",
     disableHostCheck: true,
